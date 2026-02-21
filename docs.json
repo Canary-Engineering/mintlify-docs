@@ -8,24 +8,34 @@
     "dark": "#cc003a"
   },
   "favicon": "/favicon.svg",
+  "icons": {
+    "library": "lucide"
+  },
   "navigation": {
     "tabs": [
       {
         "tab": "User Guide",
+        "icon": "book-open",
         "groups": [
           {
             "group": "Getting started",
+            "icon": "rocket",
             "pages": ["index", "quickstart"]
           },
           {
             "group": "Guides",
+            "icon": "wrench",
             "pages": [
               "guides/connection",
               "guides/backup-restore",
               "guides/flashing",
+              "guides/flash-options",
+              "guides/pre-flash-checklist",
               "guides/map-switching",
+              "guides/mhd-menu",
               "guides/live-monitoring",
               "guides/diagnostics",
+              "guides/vehicles",
               "guides/settings",
               "guides/safety",
               "guides/troubleshooting"
@@ -35,17 +45,21 @@
       },
       {
         "tab": "Technical Reference",
+        "icon": "code",
         "groups": [
           {
             "group": "Architecture",
+            "icon": "sitemap",
             "pages": ["reference/overview", "reference/transport", "reference/uds"]
           },
           {
             "group": "Formats & Errors",
+            "icon": "file-code",
             "pages": ["reference/tune-format", "reference/errors", "reference/limitations"]
           },
           {
             "group": "Development",
+            "icon": "terminal",
             "pages": ["reference/ffi", "reference/development"]
           }
         ]

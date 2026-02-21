@@ -1,0 +1,128 @@
+---
+title: "Flash Options Catalog"
+description: "Complete list of 46+ flash options by category"
+icon: "sliders"
+---
+
+## Overview
+
+Flash options are calibration tweaks applied during a flash. Each option modifies specific bytes or tables in the calibration area. Availability depends on engine family, ROM version, and transmission type.
+
+---
+
+## Exhaust & Sound
+
+| Option | Description |
+|--------|-------------|
+| Burble | Exhaust crackle/pop. Levels: OEM, Softer, Soft, Med, Hard. Per-map-slot. |
+| ColdStartReduction | Reduces cold start noise |
+| ExhaustFlap | Stock / open in sport / always open |
+| StartupRoar | Aggressive engine sound at startup |
+| OpfDelete | OPF (particulate filter) delete / overrun fix |
+| ShutterFlaps | Intake manifold shutter flap control |
+| ShiftBrap | Exhaust pop during full throttle shifts (8AT) |
+| ExhaustSetup | OEM vs aftermarket exhaust configuration |
+
+---
+
+## Performance & Limiters
+
+| Option | Description |
+|--------|-------------|
+| VmaxRemoval | Top speed limiter removal |
+| BoostPerGear | Boost target per gear (PSI). 0 = deactivate. |
+| TorquePerGear | Torque limit per gear (percentage) |
+| CoolantTarget | Stock / Sport / Track coolant targets |
+| Air2WaterCooling | Air-to-water intercooler sport mode |
+| Antilag | Off / On / Burble-tune variant |
+
+---
+
+## Throttle
+
+| Option | Description |
+|--------|-------------|
+| LinearThrottle | 1:1 pedal to throttle mapping |
+| ThrottleLag | Stock / NoLag sensitivity |
+| PedalMapping | Custom pedal-to-throttle curve |
+
+---
+
+## Idle & Launch
+
+| Option | Description |
+|--------|-------------|
+| IdleRpm | Minimum idle RPM override |
+| LaunchRpm | Launch control RPM (6MT) with speed/RPM limits |
+| RevMatch | Stock / Disabled / DSC / Eco / Sport / Sport+ |
+| NoLiftShift | No-lift shift support |
+
+---
+
+## Transmission
+
+| Option | Description |
+|--------|-------------|
+| KickdownDisable | Deactivate kick-down (AT/DCT) |
+| ShiftBogFix | Removes torque limiter during WOT shifts (6MT) |
+| TcuLimiterDelete | TCU torque limiter delete + launch control disable |
+| MsaDisable | Auto Start/Stop disable |
+
+---
+
+## Hardware & Sensors
+
+| Option | Description |
+|--------|-------------|
+| TmapSensor | 5 bar / T-Map sensor support |
+| HpfpUpgrade | HPFP upgrade (XDI, Dorch, etc.) |
+| AftermarketIgnitionCoils | Eldor or similar coils |
+| AftermarketInjectors | Upgraded injectors |
+| SingleBankFueling | Single turbo / single bank fueling |
+| OscillationFix | Lambda/throttle oscillation fix (aftermarket DP) |
+| NxmOilPressure | NXM oil pressure sensor support |
+| AdvO2Kit | ADV O2 / wideband sensors |
+
+---
+
+## Safety & Knock
+
+| Option | Description |
+|--------|-------------|
+| PiSafetyCoilCut | Port injection + methanol safety (coil cut on over-boost) |
+| DesensitizeKnock | Knock sensor desensitization |
+| KnockCel | Knock-related CEL behavior |
+| WastegateRattleFix | Less rattle / less lag |
+
+---
+
+## FlexFuel & MultiMap
+
+| Option | Description |
+|--------|-------------|
+| FlexFuel | Standard / CANBUS ECA / blend maps |
+| ActiveMapSlot | Multi-map slot selection |
+| WheelControl | Map switch via steering wheel / cruise / BC |
+| IDriveGauges | iDrive gauge display |
+| RadioOffDuringMapswitch | Radio off during map switch |
+
+---
+
+## Flash Counter
+
+| Option | Description |
+|--------|-------------|
+| FlashCounterReset | Reset or freeze flash counter |
+
+---
+
+## Option Conflicts
+
+Some options conflict and cannot be used together:
+
+- **BoostPerGear** + **TorquePerGear**: Choose one
+- **Burble (Hard)** + **StartupRoar**: Mutually exclusive
+- **FlexFuel** variants: One only
+- **MultiMap** options: Depends on tune context
+
+The app validates options before flashing and reports conflicts.

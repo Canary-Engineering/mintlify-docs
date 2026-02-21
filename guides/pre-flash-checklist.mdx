@@ -1,0 +1,43 @@
+---
+title: "Pre-Flash Checklist"
+description: "All 12 pre-flash conditions before flashing"
+icon: "clipboard-check"
+---
+
+## Overview
+
+The app runs 12 pre-flash condition checks before starting a flash. All must pass for the flash to proceed. These conditions were discovered from the flasher RE string table (PPC_01 through PPC_0C).
+
+---
+
+## Conditions
+
+| ID | Condition | Description |
+|----|-----------|-------------|
+| PPC_01 | Ignition ON | Ignition must be fully ON (position II / RUN) |
+| PPC_02 | Airplane mode | Enable airplane mode. Keep WiFi on if using a wireless adapter. |
+| PPC_03 | Headlights OFF | Turn headlights OFF to reduce electrical load |
+| PPC_04 | Climate control OFF | Turn climate control / HVAC OFF |
+| PPC_05 | Battery voltage | Battery voltage must be above 12.0 V |
+| PPC_06 | Battery charger | Battery charger recommended for stable voltage (13.2 V ideal) |
+| PPC_07 | Engine OFF | Engine must be OFF (ignition ON, engine not running) |
+| PPC_08 | Stock backup exists | A stock backup must exist before flashing |
+| PPC_09 | JB4 on MAP 0 | If JB4 piggyback is installed, set to MAP 0 |
+| PPC_10 | No third-party corruption | No third-party flash corruption detected |
+| PPC_11 | ECU communication | ECU communication must be established |
+| PPC_12 | Tune validated | Tune file must be validated for this ECU |
+
+---
+
+## Voltage Thresholds
+
+- **Minimum**: 12.0 V
+- **Recommended**: 13.2 V (with battery charger)
+
+For long write types (Full, Long), a battery charger is strongly recommended.
+
+---
+
+## Running the Check
+
+Before flashing to stock or flashing a tune, the app calls `checkPreFlashConditions()`. Failed conditions are shown with a description. Fix any failures before retrying.

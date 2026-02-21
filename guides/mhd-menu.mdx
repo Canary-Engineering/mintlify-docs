@@ -1,0 +1,60 @@
+---
+title: "MHD+ Steering Wheel Menu"
+description: "3-page menu for map switching, exhaust flap, ethanol"
+icon: "game-controller"
+---
+
+## Overview
+
+The MHD+ steering wheel menu provides a 3-page interface for runtime ECU configuration. Enter via the BC (Board Computer) or SET/LIM button. The CEL blinks to indicate the current page; the RPM needle shows the selection value.
+
+---
+
+## Pages
+
+| Page | CEL Pattern | RPM Meaning | Function |
+|------|-------------|-------------|----------|
+| 1 | 1 blink | 1000 = Map 1, 2000 = Map 2, 3000 = Map 3, 4000 = Map 4 | Map switching |
+| 2 | 2 blinks | 0 = OEM, 1000 = open, 2000 = closed | Exhaust flap override |
+| 3 | 3 blinks | 1000 = 10% E, 7500 = 75% E | Ethanol quick-view (read-only) |
+
+---
+
+## Interaction Flow
+
+1. **Enter**: Hold BC or SET/LIM for 2 seconds. CEL starts blinking, tach jumps.
+2. **Navigate**: Cruise UP/DOWN rocker cycles the selection within the current page.
+3. **Change page**: Quick-press BC or SET/LIM. CEL pattern changes (1 → 2 → 3 → 1).
+4. **Confirm & exit**: Hold BC or SET/LIM for 2 seconds. Selection applied, CEL stops.
+
+---
+
+## Page 1: Map Switching
+
+- Select active map slot (1–4).
+- RPM needle: 1000 = Map 1, 2000 = Map 2, 3000 = Map 3, 4000 = Map 4.
+- Requires multi-map tune and WheelControl flash option.
+
+---
+
+## Page 2: Exhaust Flap
+
+- **OEM** (RPM 0): Stock exhaust flap control.
+- **Force open** (RPM 1000): Flap always open.
+- **Force closed** (RPM 2000): Flap closed up to load safety threshold.
+
+---
+
+## Page 3: Ethanol View
+
+- Read-only display of ethanol content from CAN ECA sensor.
+- RPM needle indicates percentage (e.g. 7500 = 75%).
+- Requires FlexFuel with CANBUS ECA.
+
+---
+
+## Requirements
+
+- Tune must include MHD+ calibration extension (MapSwitchBase template).
+- WheelControl flash option for steering wheel map switching.
+- RAM addresses for live adjustment are ROM-specific; support depends on your tune.
