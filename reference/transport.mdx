@@ -1,0 +1,49 @@
+---
+title: "Transport Layer"
+description: "Transport trait and adapter implementations"
+---
+
+## Transport Trait
+
+`apex-transport` defines the `Transport` trait — the adapter boundary. All UDS/flash/backup/metrics stacks build on top.
+
+**Methods**:
+- `discover()`: find adapters
+- `connect()` / `disconnect()`: open/close connection
+- `send_receive(request, timeout)`: send PDU, wait for response
+- `send(request)`: send without waiting (keepalive, reset)
+
+---
+
+## Adapters
+
+### WiFi (apex-adapter::wifi)
+
+HSFZ over TCP. Default: `192.168.4.1:6801`.
+
+- NRC 0x78 (response pending) handled at adapter boundary
+- Stream desync protection
+- Logical destination address configurable via `with_logical_addrs()`
+
+### ENET (apex-adapter::enet)
+
+Ethernet-to-OBD for F/G-series. Same HSFZ framing as WiFi.
+
+- TCP port 6801
+- Use `enet_scan` example to determine ECU logical address
+
+### FTDI / K+DCAN (apex-adapter::ftdi)
+
+Serial port, K+DCAN framing. Requires Cargo feature `serial`.
+
+- Without `serial`: stub (mobile FFI builds)
+- With `serial`: real ISO-TP segmentation/reassembly
+
+---
+
+## ISO-TP
+
+- FlowControl block size (BS) and separation time (STmin) honored
+- Sequence wrapping: 0x0F to 0x00 per ISO 15765-2
+- Reassembly: 4095 bytes max, 30-second deadline
+- NRC 0x78: handled; NRC 0x21: 3x retry with 100ms delay

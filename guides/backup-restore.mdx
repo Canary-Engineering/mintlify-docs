@@ -1,0 +1,44 @@
+---
+title: "Backup & Restore"
+description: "Create ECU backups and restore to stock"
+---
+
+## Create Backup
+
+A full calibration backup is required before flashing. The backup reads the ECU calibration sector via UDS RequestUpload and TransferData.
+
+1. Open the **Restore** tab in the bottom navigation
+2. Tap **Create Backup** and confirm when prompted
+3. Wait for completion; do not disconnect during the operation
+4. The app stores the backup in its documents directory; the path is shown after completion
+
+<Warning>
+Store backups in a safe location. You may need them to restore if a flash fails or to return to stock.
+</Warning>
+
+---
+
+## Restore to Stock
+
+Restore uses your last backup to write the original calibration back to the ECU.
+
+1. Ensure you have a valid backup (created earlier)
+2. Open the **Restore** tab
+3. Tap **Flash Stock File**
+4. The app runs pre-flash checks (battery, ignition, etc.)
+5. Confirm and wait for the restore to complete
+
+---
+
+## Stage 0
+
+Stage 0 resets the ECU to a baseline calibration. Availability and behavior depend on your tune and ECU type. If the option is present, follow the on-screen prompts.
+
+---
+
+## Backup Storage
+
+- Backups are saved to the app documents directory
+- The exact path is shown after a backup completes
+- File format: raw calibration BIN (typically 192 KB for B58 MG1)
+- You can copy backups to cloud storage or a computer for safekeeping

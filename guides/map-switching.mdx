@@ -1,0 +1,42 @@
+---
+title: "Map Switching"
+description: "Multi-map slots and steering wheel control"
+---
+
+## Multi-Map Slots
+
+ECUs with multi-map support (e.g. B58, S58) can store multiple calibration slots. You can switch between them at runtime without reflashing.
+
+- **Slot count**: Typically 4 slots (depends on ECU family)
+- **Active slot**: Shown in the **Tune** tab and **Codes** tab
+
+---
+
+## Switching Maps (App)
+
+1. Open the **Tune** tab
+2. Find the map slot pills (Slot 1, 2, 3, 4)
+3. **Double-tap** the target slot to switch (safety measure to prevent accidental changes)
+4. The ECU switches to the selected map
+
+<Info>
+Double-tap is required to confirm. Single tap does not switch.
+</Info>
+
+---
+
+## Steering Wheel Control
+
+If the **WheelControl** flash option is enabled, you can switch maps using:
+
+- Steering wheel buttons
+- Cruise control stalk
+- BC (Board Computer) button
+
+The exact controls depend on your vehicle and tune configuration. See your tuner's documentation for details.
+
+---
+
+## MHD+ Menu System
+
+Some tunes include an MHD+ steering wheel menu for runtime configuration (exhaust flap, CEL pattern, etc.). The menu is navigated via steering wheel buttons. Map slot selection is part of this menu system when supported.

@@ -1,0 +1,43 @@
+---
+title: "UDS Protocol"
+description: "ISO 14229 UDS client implementation"
+---
+
+## Sessions
+
+- `enter_session(DiagnosticSession::Programming | Extended | Default)`
+- Service: 0x10 + sub-function
+
+## Security Access (0x27)
+
+1. Request seed: `[0x27, request_seed_sub]`
+2. Derive key from seed via `KeyDerivation`
+3. Send key: `[0x27, send_key_sub, key...]`
+
+## Download / Upload
+
+- **RequestDownload** (0x34): DataFormatIdentifier 0x00 (raw), AddressAndLengthFormatIdentifier 0x44 (4-byte addr + 4-byte len)
+- **RequestUpload** (0x35): Same format
+- **TransferData** (0x36): block counter + payload
+- **TransferExit** (0x37)
+
+Block counters: 1-based, wrap modulo 256 per ISO 14229.
+
+## Data Identifiers
+
+- **ReadDataByIdentifier** (0x22): DID hi/lo
+- **WriteDataByIdentifier** (0x2E): DID + payload
+
+## DTC Services
+
+- ReadDTCInformation (0x19)
+- ClearDiagnosticInformation (0x14) with group 0xFFFFFF for all
+
+## Routines (0x31)
+
+`start_routine(routine_id, params)` for map switching, erase, etc.
+
+## NRC Handling
+
+- 0x78 (ResponsePending): adapters poll until final response
+- 0x21 (BusyRepeatRequest): 3x retry with 100ms delay

@@ -1,0 +1,29 @@
+---
+title: "Limitations"
+description: "Known gaps and unimplemented features"
+---
+
+## Protocol Support
+
+- **UDS**: Implemented with full response validation
+- **KWP2000**: Modeled for N54 (MSD80/81) but not implemented. Types exist in `apex-uds::kwp2000`.
+
+## Adapter Support
+
+- **WiFi / ENET**: HSFZ over TCP, implemented
+- **FTDI**: Behind feature `serial`; stub without it (mobile builds)
+- **LegacyWifi**: Modeled, no implementation
+
+## Hardware Testing
+
+- **Zero bytes to real ECU**: All 556 tests use mocks. Not validated on real vehicles/ECUs.
+
+## Flash Gaps
+
+- Resume-from-exact-last-block: not implemented; full re-transfer on resume
+- Bootloader patching: read/validate done; patch application not implemented
+- MultiMap RAM addresses: placeholders (0xFFFFFFFF)
+
+## Dangerous Operations
+
+Bootloader writes and unlock/re-lock flows are **library-only**, feature-gated (`dangerous-bootloader-write`, `dangerous-unlock-ops`), and require runtime acknowledgement. The mobile app does not expose these. End users never see them.

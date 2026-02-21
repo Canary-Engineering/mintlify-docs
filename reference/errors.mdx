@@ -1,0 +1,42 @@
+---
+title: "Error Reference"
+description: "CanaryError variants and handling"
+---
+
+## Transport Errors
+
+| Variant | Cause | Action |
+|---------|-------|--------|
+| AdapterNotFound | Discovery failed, no adapter | Check cable/WiFi, retry |
+| ConnectionLost | Transport disconnected mid-op | Reconnect |
+| Timeout | No response within timeout | Check ignition, retry |
+
+## UDS / Protocol Errors
+
+| Variant | Cause | Action |
+|---------|-------|--------|
+| UdsNegativeResponse | ECU rejected with NRC | Show description, check operation context |
+
+## Flash Errors
+
+| Variant | Cause | Action |
+|---------|-------|--------|
+| NoBackupExists | Backup required | Create backup first |
+| FlashWriteRejected | Safety guardrail or ECU refusal | Check pre-flash conditions |
+| FlashInterrupted | Failed mid-write | Recovery may be required |
+| ChecksumMismatch | Readback CRC != written | Verify tune, retry |
+| OptionPatchNotImplemented | Option not supported for ROM | Remove option or use supported ROM |
+
+## Tune Format Errors
+
+| Variant | Cause | Action |
+|---------|-------|--------|
+| InvalidTuneFile | Wrong size, malformed | Verify file format |
+| TuneEcuMismatch | Tune for different engine/ROM | Use correct tune |
+
+## ROM / Identity Errors
+
+| Variant | Cause | Action |
+|---------|-------|--------|
+| UnknownRom | SW version not in ROM DB | Add ROM or use allow_unknown_rom (risky) |
+| SubVariantMismatch | SGBM sub-variant mismatch | Use correct backup/tune |

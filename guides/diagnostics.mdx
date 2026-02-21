@@ -1,0 +1,61 @@
+---
+title: "Diagnostics"
+description: "DTC read/clear, adaptation resets, ECU identification"
+---
+
+## Read DTCs
+
+1. Open the **Codes** tab
+2. Tap **Read Codes**
+3. The fault list shows code, description, and severity (warning/critical)
+
+---
+
+## Clear DTCs
+
+1. Open the **Codes** tab
+2. Tap **Clear Codes**
+3. Confirm. All stored DTCs are cleared.
+
+<Info>
+Clearing DTCs does not fix the underlying issue. If a fault persists, the code will return. Address the root cause (sensor, wiring, etc.) before clearing.
+</Info>
+
+---
+
+## Adaptation Resets
+
+Adaptations are learned values the ECU adjusts over time. Resetting forces re-learning, which is recommended after flashing a new tune.
+
+### 12 Adaptation Types
+
+| Type | Description |
+|------|-------------|
+| Idle | Idle speed control |
+| Intake | Intake manifold / airflow |
+| Knock regulation | Ignition timing corrections |
+| Lambda regulation | O2 sensor regulation |
+| Lambda sensors | O2 sensor aging/offset |
+| Load control | Requested vs. actual load |
+| Throttle | Throttle body position |
+| Battery change | Voltage/capacity re-learn |
+| Long term fuel trim | LTFT |
+| Octane | Knock-based fuel quality learning |
+| Rail pressure | Fuel rail target vs. actual |
+| VANOS | Variable valve timing |
+
+### Reset Individual or All
+
+- **Reset All**: Clears all 12 adaptation types
+- **Reset per type**: Expand the adaptation section and tap reset for specific types
+
+---
+
+## ECU Identification
+
+The **Codes** tab shows:
+
+- VIN, Engine, Platform
+- Flash count, SW version, Calibration ID
+- Battery voltage, OBD readiness
+- Current map, map slot

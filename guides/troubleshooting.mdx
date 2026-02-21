@@ -1,0 +1,71 @@
+---
+title: "Troubleshooting"
+description: "Common errors and recommended actions"
+---
+
+## Connection Failed
+
+**Symptoms**: Red status dot, "Adapter not found", timeout, connection lost mid-operation.
+
+**Possible causes**:
+- Adapter not powered or not plugged into OBD port
+- Wrong IP/port (default: 192.168.4.1:6801)
+- Phone not on adapter's WiFi network (for WiFi adapters)
+- Ignition off
+- Adapter hardware fault
+
+**Actions**:
+1. Check adapter is firmly seated in OBD port
+2. Verify phone is connected to adapter WiFi (WiFi adapters)
+3. Confirm IP and port in Settings
+4. Turn ignition on (engine can be off)
+5. Retry connection
+
+---
+
+## Unknown ROM
+
+**Symptoms**: "Unknown ROM" error when attempting backup or flash.
+
+**Cause**: Your ECU's hardware part number and software version are not in the ROM database.
+
+**Actions**:
+1. Read ECU IDs (VIN, HW, SW) via the app or `wifi_read_ecu_id` example
+2. The ROM may need to be added to the database
+3. Do not use `allow_unknown_rom` unless you understand the risks of cross-architecture writes
+
+---
+
+## Flash Failed
+
+**Symptoms**: Flash rejects before starting, or fails mid-write.
+
+**Common causes and actions**:
+
+| Error | Action |
+|-------|--------|
+| No backup exists | Create and verify a backup first |
+| Backup not verified | Ensure backup completed successfully |
+| Pre-flash condition failed | Check battery voltage, ignition, immobilizer |
+| Tune size mismatch | Tune file must match ECU calibration size exactly |
+| Option not implemented | Some flash options may not be supported for your ROM |
+| Checksum mismatch | Verify tune file integrity; retry with a fresh file |
+
+---
+
+## Tune File Errors
+
+**Invalid tune file**: Wrong size, malformed container. Ensure the file is a valid calibration BIN for your ECU (e.g. 192 KB for B58 MG1).
+
+**Tune ECU mismatch**: Tune targets a different engine/ROM than the connected ECU. Use a tune that matches your vehicle.
+
+---
+
+## Adapter Timeout / Stream Desync
+
+**Symptoms**: Operation hangs, then fails with timeout or stream error.
+
+**Actions**:
+1. Ensure stable connection; avoid moving the phone during operations
+2. Check for interference (other OBD apps, Bluetooth)
+3. Try a different adapter if the issue persists

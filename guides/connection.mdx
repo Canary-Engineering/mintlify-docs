@@ -1,0 +1,45 @@
+---
+title: "Connection Setup"
+description: "Configure WiFi and ENET adapters for ECU communication"
+---
+
+## Supported Adapters
+
+Apex Flashtool works with adapters that expose BMW **HSFZ** framing over TCP:
+
+| Adapter | Type | Default IP | Port |
+|---------|------|------------|------|
+| MHD WiFi | WiFi | 192.168.4.1 | 6801 |
+| ENET cable | Ethernet | (device IP) | 6801 |
+
+### WiFi Adapter Setup
+
+1. Power on the WiFi OBD adapter and plug it into the OBD-II port
+2. On your phone, go to **WiFi settings** and connect to the adapter's network (e.g. "MHD WiFi")
+3. Open Apex Flashtool and go to **Settings** → **Connection**
+4. Enter the adapter IP (default: `192.168.4.1`) and port (`6801`)
+5. Tap **Connect**
+
+### ENET Cable
+
+For F/G-series vehicles with direct Ethernet-to-OBD:
+
+1. Connect the ENET cable to the OBD port and your device (via USB-C Ethernet or similar)
+2. The adapter may have a different IP; check the adapter documentation
+3. Enter the IP and port (typically 6801) in **Settings** → **Connection**
+
+---
+
+## Connection Status
+
+- **Green dot** in the app header: connected and ready
+- **Red dot**: disconnected or connection failed
+- If connection fails, see [Troubleshooting](/guides/troubleshooting)
+
+---
+
+## Requirements
+
+- **Ignition**: On (engine off for flashing; can be running for monitoring)
+- **OBD port**: Adapter firmly seated
+- **Network**: Phone must be on the adapter's WiFi (for WiFi adapters)

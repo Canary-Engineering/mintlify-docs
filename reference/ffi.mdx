@@ -1,0 +1,45 @@
+---
+title: "FFI / Mobile Bridge"
+description: "C ABI and JNI exports for mobile"
+---
+
+## Stack
+
+Rust FFI -> JNI -> Kotlin ApexCoreBridge -> Expo ApexCoreModule -> TypeScript API -> ApexContext -> React UI
+
+## Session Lifecycle
+
+- `apex_create_session` / `apex_free_session`: manages tokio runtime + session state
+
+## Adapter
+
+- `apex_connect_adapter(addr, port)` / `apex_disconnect_adapter` / `apex_is_connected`
+
+## ECU Operations
+
+- `apex_load_xdf`, `apex_set_engine_family`, `apex_get_ecu_info`
+- `apex_get_flash_options`, `apex_apply_flash_options`
+- `apex_lookup_rom`, `apex_rom_count`
+
+## Backup / Flash
+
+- `apex_create_backup(output_path)`, `apex_flash_to_stock`
+- `apex_start_flash(tune_path, write_type, options_json)`
+
+## DTC / Adaptations
+
+- `apex_read_dme_info`, `apex_read_dtcs`, `apex_clear_dtcs`
+- `apex_reset_adaptation`, `apex_reset_all_adaptations`
+
+## Validation
+
+- `apex_check_pre_flash_conditions`, `apex_get_pre_flash_warnings`
+- `apex_validate_flash_options`
+
+## Map / Live
+
+- `apex_switch_map`, `apex_read_live_state`
+
+## Error Handling
+
+- Thread-local `LAST_ERROR`; `apex_get_last_error()` for diagnostics

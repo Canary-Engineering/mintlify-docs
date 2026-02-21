@@ -1,0 +1,50 @@
+---
+title: "Safety"
+description: "ECU safety, backup requirements, and bench unlock"
+---
+
+## Non-Negotiable Rules
+
+1. **Backup before flash**: The flash flow will not proceed without a verified backup.
+2. **Bootloader protection**: Normal flashing never writes the bootloader sector.
+3. **Bench unlock**: MG1/MD1 ECUs require explicit unlock state; the app will not flash without it.
+
+---
+
+## App Responsibilities
+
+The app enforces:
+
+- **Stable voltage**: Battery charger recommended for long operations
+- **No sleep during flash**: Wake lock to prevent device sleep
+- **Connection monitoring**: Abort UX if connection drops
+- **Ignition/engine state**: Engine off for flashing
+- **Pre-flash conditions**: 12 checks (battery, ignition, immobilizer, etc.) before proceeding
+
+---
+
+## ROM Database
+
+For MG1/MD1 ECUs, the ECU's exact hardware and software identifiers must be in the ROM whitelist. Unknown ROMs are rejected by default to prevent cross-architecture writes.
+
+If you see **Unknown ROM**:
+
+- Your ECU's HW part number and SW version may not be in the database
+- Contact support or contribute the ROM identifiers to the project
+- Do not use `allow_unknown_rom` unless you understand the risks
+
+---
+
+## High-Risk Operations
+
+Bootloader writes and unlock/re-lock flows are **not exposed** to end users. They are library-only, feature-gated, and require explicit runtime acknowledgement. The mobile app does not offer these operations.
+
+---
+
+## Recovery
+
+If a flash is interrupted:
+
+- Recovery state is saved to disk
+- On next attempt, the app may detect the interrupted session and warn you
+- Resume-from-exact-block is not implemented; a full re-transfer is performed for safety

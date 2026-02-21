@@ -1,0 +1,71 @@
+---
+title: "Development Setup"
+description: "Build apex and apex-mobile for Android"
+---
+
+## Prerequisites
+
+### Android NDK
+
+```bash
+sdkmanager --install "ndk;27.0.12077973"
+export ANDROID_NDK_HOME=$HOME/Android/Sdk/ndk/27.0.12077973
+```
+
+### Rust Android Targets
+
+```bash
+rustup target add aarch64-linux-android armv7-linux-androideabi
+```
+
+### cargo-ndk
+
+```bash
+cargo install cargo-ndk
+```
+
+### Expo Development Build
+
+The app uses a development build (not Expo Go) because of native modules:
+
+```bash
+bun install -g eas-cli
+eas build --profile development --platform android
+# Or locally:
+npx expo run:android
+```
+
+---
+
+## Building the Native Library
+
+From the `apex/` directory:
+
+```bash
+./scripts/build-android.sh release   # for device testing
+./scripts/build-android.sh debug     # for development
+```
+
+This compiles `apex-ffi` for arm64-v8a and armeabi-v7a and copies `.so` files into `apex-mobile/modules/expo-apex-core/android/src/main/jniLibs/`.
+
+---
+
+## Development Workflow
+
+1. Make changes to Rust code in `apex/crates/`
+2. Run `cargo test` in `apex/` to verify
+3. Run `./scripts/build-android.sh debug`
+4. Run `bun start` in `apex-mobile/` to launch Metro
+5. Test on device via development build
+
+---
+
+## Native API Coverage
+
+| Category | Status |
+|----------|--------|
+| Session, Adapter, ECU, ROM | Done |
+| DTC, Adaptations | Done |
+| Backup/Flash, Options, Pre-flash | Done |
+| Map/Live, Vehicles | Done |
+| Logging (start/stop/export) | Stub |

@@ -1,0 +1,37 @@
+---
+title: "Tune Format"
+description: "Raw BIN and APEX container format"
+---
+
+## Raw Calibration BIN
+
+Headerless calibration region bytes. Validation:
+
+- Size must match calibration sector for target `EngineFamily`
+- CRC-32 (IEEE) for integrity
+
+Entry point: `parse_tune_raw(data, engine_family)`
+
+## APEX Container
+
+Wrapper format:
+
+- Magic: `APEX`
+- Version, engine-family tag
+- Payload size, CRC-32
+- Payload bytes
+
+Entry points: `build_apex_tune()`, `parse_tune()`
+
+## VIN Extraction / Validation
+
+- `extract_vin(cal, offset)` -> Option<String>
+- `validate_vin(cal, offset, expected_vin)` -> Result
+
+Offsets are ROM-specific.
+
+## Validation Errors
+
+- **WRONG_BINSIZE**: file size != calibration sector size
+- **WRONG_CRC**: CRC-32 mismatch
+- **VIN_MISMATCH**: embedded VIN != target vehicle

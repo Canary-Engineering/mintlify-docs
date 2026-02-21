@@ -1,0 +1,65 @@
+---
+title: "Flashing"
+description: "Flash tunes, pre-flash checklist, and flash options"
+---
+
+## Pre-Flash Checklist
+
+Before flashing, ensure:
+
+- **Backup verified**: You have created and verified a backup
+- **Battery**: Voltage stable (charger recommended for long operations)
+- **Ignition**: On, engine off
+- **Connection**: Adapter connected, no sleep during flash
+- **Tune file**: Correct size and format for your ECU
+
+The app runs pre-flash condition checks before starting. If any check fails, the flash will not proceed.
+
+---
+
+## Flash Workflow
+
+1. **Configure options**: Open the **Tune** tab. Adjust flash options (throttle, exhaust, performance, etc.) as desired.
+2. **Select tune**: Choose your tune file (.bin). Tune files are obtained from your tuner or OTS map provider.
+3. **Tap Flash**: Tap the Flash button (FAB). A confirmation sheet appears.
+4. **Confirm**: Select stage, octane, transmission. Tap **Confirm** to start.
+5. **Wait**: Do not disconnect or put the device to sleep. A battery charger is recommended.
+
+---
+
+## Getting Tune Files
+
+Tune files (.bin) are calibration data. You obtain them from:
+
+- **OTS (off-the-shelf) maps**: Pre-built maps from tuners (e.g. Stage 1, Stage 2)
+- **Custom tunes**: From your tuner, tailored to your vehicle and modifications
+
+Apex Flashtool does not provide a tune catalog. We document the format and validation only. The file must match your ECU calibration size (e.g. 192 KB for B58 MG1).
+
+---
+
+## Flash Options
+
+Flash options are applied as patches before writing. Categories include:
+
+- **Exhaust / sound**: Burble, ColdStartReduction, ExhaustFlap, OpfDelete
+- **Performance**: VmaxRemoval, BoostPerGear, CoolantTarget, Antilag
+- **Throttle**: LinearThrottle, ThrottleLag, PedalMapping
+- **Idle / launch**: IdleRpm, LaunchRpm, RevMatch
+- **Transmission**: KickdownDisable, ShiftBogFix, TcuLimiterDelete
+- **Hardware**: TmapSensor, HpfpUpgrade, AftermarketInjectors
+- **Safety**: PiSafetyCoilCut, DesensitizeKnock, KnockCel
+- **FlexFuel**: Standard, CANBUS ECA, blend maps
+- **MultiMap**: ActiveMapSlot, WheelControl
+
+Some options conflict (e.g. BoostPerGear + TorquePerGear). The app validates options before flashing.
+
+---
+
+## Write Types
+
+- **Map**: Calibration-only (fastest)
+- **Long**: Extended calibration region
+- **Full**: Full program + calibration (longest; battery charger strongly recommended)
+
+The app detects the appropriate write type from the tune file size.

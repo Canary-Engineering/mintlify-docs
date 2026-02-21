@@ -1,0 +1,53 @@
+---
+title: "Architecture Overview"
+description: "Crate dependency graph and data flows for flash, backup, monitoring"
+---
+
+## Crate Dependency Graph
+
+```
+Your app (UI/CLI)
+       |
+apex-flash, apex-backup, apex-metrics
+       |
+   apex-uds (session, security, transfer, data, dtc, coding, routines)
+       |
+  apex-transport (trait)
+       |
+  apex-adapter (ftdi / wifi / enet)
+```
+
+- **apex-compress**: NRV2B compression for MG1/MD1 flash transfers
+- **apex-xdf**: TunerPro XDF parser for calibration table addresses
+- **apex-ffi**: C ABI / JNI exports for mobile
+- **apex-common**: Shared types, errors, progress, ROM DB, adaptation, preflash
+
+---
+
+## Flash Flow
+
+1. App calls `apex_flash::flash_ecu(uds, config, progress)`
+2. apex-flash validates pre-flash conditions, checks `backup_verified`, verifies tune size
+3. apex-uds enters programming session
+4. apex-flash performs security access (seed/key)
+5. If erase required: RoutineControl 0xFF00
+6. apex-uds: RequestDownload, TransferData loop, RequestTransferExit
+7. Optional: post-flash CRC verification
+8. Optional: ECU reset
+
+---
+
+## Backup Flow
+
+1. App calls `apex_backup::create_backup(uds, ecu_id, progress)`
+2. apex-backup uses ECU memory map for sectors/sizes
+3. apex-uds: RequestUpload, TransferData read loop, RequestTransferExit
+4. Restore = `flash_ecu` with backup data
+
+---
+
+## Monitoring Flow
+
+1. App configures channels (DIDs), calls apex-metrics
+2. LoggingSession polls via `read_data_by_identifier` (0x22)
+3. Results streamed to UI or exported (CSV, .canarylog)

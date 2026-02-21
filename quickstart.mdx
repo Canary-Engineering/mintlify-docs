@@ -1,80 +1,69 @@
 ---
 title: "Quickstart"
-description: "Start building awesome documentation in minutes"
+description: "Connect, backup, and flash in three steps"
 ---
 
-## Get started in three steps
+## Before You Start
 
-Get your documentation site running locally and make your first customization.
+<Info>
+Read these prerequisites before connecting or flashing.
+</Info>
 
-### Step 1: Set up your local environment
+### Bench Unlock (MG1 / MD1)
 
-<AccordionGroup>
-  <Accordion icon="copy" title="Clone your docs locally">
-    During the onboarding process, you created a GitHub repository with your docs content if you didn't already have one. You can find a link to this repository in your [dashboard](https://dashboard.mintlify.com).
-    
-    To clone the repository locally so that you can make and preview changes to your docs, follow the [Cloning a repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) guide in the GitHub docs.
-  </Accordion>
-  <Accordion icon="rectangle-terminal" title="Start the preview server">
-    1. Install the Mintlify CLI: `npm i -g mint`
-    2. Navigate to your docs directory and run: `mint dev`
-    3. Open `http://localhost:3000` to see your docs live!
-    
-    <Tip>Your preview updates automatically as you edit files.</Tip>
-  </Accordion>
-</AccordionGroup>
+B58 Gen1 (MG1), B58 Gen2 (MG1CS024), and S58 (MD1) ECUs require a **one-time bench unlock** before OBD flashing is possible. This is a physical step performed by a tuner or specialist. If your ECU is not bench-unlocked, flashing will fail.
 
-### Step 2: Deploy your changes
+### ROM Database
 
-<AccordionGroup>
-  <Accordion icon="github" title="Install our GitHub app">
-    Install the Mintlify GitHub app from your [dashboard](https://dashboard.mintlify.com/settings/organization/github-app).
-    
-    Our GitHub app automatically deploys your changes to your docs site, so you don't need to manage deployments yourself.
-</Accordion>
-<Accordion icon="palette" title="Update your site name and colors">
-    For a first change, let's update the name and colors of your docs site.
+The ECU's exact hardware and software identifiers must be in the ROM whitelist. Unknown ROMs are rejected by default. If you see "Unknown ROM", your ECU may need to be added to the ROM database. See [Troubleshooting](/guides/troubleshooting) for details.
 
-    1. Open `docs.json` in your editor.
-    2. Change the `"name"` field to your project name.
-    3. Update the `"colors"` to match your brand.
-    4. Save and see your changes instantly at `http://localhost:3000`.
+### Backup Requirement
 
-    <Tip>Try changing the primary color to see an immediate difference!</Tip>
-  </Accordion>
-</AccordionGroup>
+**Always create and verify a backup before your first flash.** The flash flow will not proceed unless a valid backup exists. Store backups in a safe location.
 
-### Step 3: Go live
+---
 
-<Accordion icon="rocket" title="Publish your docs">
-  1. Commit and push your changes.
-  2. Your docs will update and be live in moments!
-</Accordion>
+## Step 1: Connect the Adapter
 
-## Next steps
+1. **WiFi adapter** (MHD WiFi, ENET cable):
+   - Connect your phone to the adapter's WiFi network
+   - Default IP: `192.168.4.1`, Port: `6801`
+   - In the app: **Settings** → **Connection** → enter IP and port → **Connect**
 
-Now that you have your docs running, explore these key features:
+2. **Verify connection**:
+   - The connection status dot in the app header turns green when connected
+   - The **Tune** tab shows your ECU info (VIN snippet, engine family, SW version)
 
-<CardGroup cols={2}>
+---
 
-<Card title="Write Content" icon="pen-to-square" href="/essentials/markdown">
-  Learn MDX syntax and start writing your documentation.
-</Card>
+## Step 2: Create a Backup
 
-<Card title="Customize style" icon="palette" href="/essentials/settings">
-  Make your docs match your brand perfectly.
-</Card>
+1. Open the **Restore** tab
+2. Tap **Create Backup**
+3. Confirm the operation
+4. Wait for the backup to complete (progress bar)
+5. Backups are stored in the app's documents directory (path shown after completion)
 
-<Card title="Add code examples" icon="square-code" href="/essentials/code">
-  Include syntax-highlighted code blocks.
-</Card>
+<Warning>
+Do not skip this step. A backup is required before flashing.
+</Warning>
 
-<Card title="API documentation" icon="code" href="/api-reference/introduction">
-  Auto-generate API docs from OpenAPI specs.
-</Card>
+---
 
-</CardGroup>
+## Step 3: Flash a Tune
 
-<Note>
-  **Need help?** See our [full documentation](https://mintlify.com/docs) or join our [community](https://mintlify.com/community).
-</Note>
+1. Open the **Tune** tab
+2. Configure flash options (throttle, exhaust, performance, etc.) as desired
+3. Tap the **Flash** button (FAB)
+4. In the confirmation sheet: select stage, octane, transmission
+5. Tap **Confirm** to start the flash
+6. Keep the engine off, ignition on. A battery charger is recommended for long operations.
+7. Do not disconnect or put the device to sleep during the flash
+
+---
+
+## Next Steps
+
+- [Connection setup](/guides/connection) — WiFi adapter details, supported adapters
+- [Backup & Restore](/guides/backup-restore) — Full backup and restore workflow
+- [Flashing](/guides/flashing) — Pre-flash checklist, flash options, tune file format
